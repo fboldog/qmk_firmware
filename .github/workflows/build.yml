@@ -18,7 +18,7 @@ jobs:
         run: git config --global --add safe.directory '*'
 
       - name: Checkout QMK
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: fboldog/qmk_firmware
           branch: open-lucky62v2
@@ -28,7 +28,7 @@ jobs:
         run: qmk compile -kb "fboldog/open_lucky65v2 -kb default"
 
       - name: Archive firmware
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
           name: fboldog_open_lucky65v2_default
