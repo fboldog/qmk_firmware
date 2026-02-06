@@ -5,12 +5,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
-    strategy:
-      fail-fast: false
-      matrix:
-        # List of keymap json files to build
-        file:
-          - username.json
     # End of json file list
 
     steps:
