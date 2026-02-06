@@ -15,11 +15,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: fboldog/qmk_firmware
-          branch: open-lucky62v2
+          #branch: open-lucky62v2
           submodules: recursive
 
       - name: Build firmware
-        run: qmk compile -kb "fboldog/open_lucky65v2 -kb default"
+        run: qmk compile -kb fboldog/open_lucky65v2 -kb default
 
       - name: Archive firmware
         uses: actions/upload-artifact@v4
