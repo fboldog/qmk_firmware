@@ -1,4 +1,4 @@
-/* 
+/*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -67,3 +67,6 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 // #define RGB_TRIGGER_ON_KEYDOWN
+
+
+#define RGB_DRIVER_EN_PIN B12
