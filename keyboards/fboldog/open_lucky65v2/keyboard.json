@@ -8,14 +8,17 @@
     "bootmagic": true,
     "extrakey": false,
     "mousekey": true,
-    "nkro": true
+    "nkro": true,
+    "rgb_matrix": true,
+    "via": true
   },
   "processor": "WB32FQ95",
   "url": "https://github.com/fboldog/qmk_firmware",
   "usb": {
     "device_version": "1.0.0",
     "vid": "0x342D",
-    "pid": "0xE407"
+    "pid": "0xE407",
+    "suspend_wakeup_delay": 1000
   },
   "host": {
     "default": {
@@ -46,17 +49,79 @@
     ],
     "rows": ["A1", "A2", "A3", "A4", "A8"]
   },
+  "ws2812": {
+    "driver": "spi",
+    "pin": "B15"
+  },
+  "eeprom": {
+    "driver": "wear_leveling",
+    "wear_leveling": {
+      "driver": "spi_flash"
+    }
+  },
   "rgb_matrix": {
-    "animations": {
-        "breathing": true,
-        "typing_heatmap": true
-    },
+    "driver": "ws2812",
+    "sleep": true,
+    "speed_steps": 25,
+    "val_steps": 20,
+    "max_brightness": 200,
     "default": {
-        "on": true,
-        "animation": "breathing"
+      "sat": 255,
+      "speed": 75,
+      "val": 200,
+      "on": true,
+      "animation": "solid_reactive"
+    },
+    "animations": {
+      "alphas_mods": true,
+      "band_pinwheel_sat": true,
+      "band_pinwheel_val": true,
+      "band_sat": true,
+      "band_spiral_sat": true,
+      "band_spiral_val": true,
+      "band_val": true,
+      "breathing": true,
+      "cycle_all": true,
+      "cycle_left_right": true,
+      "cycle_out_in": true,
+      "cycle_out_in_dual": true,
+      "cycle_pinwheel": true,
+      "cycle_spiral": true,
+      "cycle_up_down": true,
+      "digital_rain": true,
+      "dual_beacon": true,
+      "gradient_left_right": true,
+      "gradient_up_down": true,
+      "hue_breathing": true,
+      "hue_pendulum": true,
+      "hue_wave": true,
+      "jellybean_raindrops": true,
+      "multisplash": true,
+      "pixel_flow": true,
+      "pixel_fractal": true,
+      "pixel_rain": true,
+      "rainbow_beacon": true,
+      "rainbow_moving_chevron": true,
+      "rainbow_pinwheels": true,
+      "raindrops": true,
+      "solid_multisplash": true,
+      "solid_reactive": true,
+      "solid_reactive_cross": true,
+      "solid_reactive_multicross": true,
+      "solid_reactive_multinexus": true,
+      "solid_reactive_multiwide": true,
+      "solid_reactive_nexus": true,
+      "solid_reactive_simple": true,
+      "solid_reactive_wide": true,
+      "solid_splash": true,
+      "splash": true,
+      "typing_heatmap": true
     },
     "layout": [
-        {"matrix": [4, 6], "x": 89, "y": 64, "flags": 4},
+        {"matrix": [4, 4], "x": 89, "y": 64, "flags": 4},
+        //NO_KEY [4,5]
+        //NO_KEY [4,4]
+        //NO_KEY [4,3]
         {"matrix": [4, 2], "x": 38, "y": 64, "flags": 4},
         {"matrix": [4, 1], "x": 20, "y": 64, "flags": 4},
         {"matrix": [4, 0], "x": 2, "y": 64, "flags": 4},
@@ -73,18 +138,22 @@
         {"matrix": [3, 9], "x": 148, "y": 48, "flags": 4},
         {"matrix": [3, 10], "x": 163, "y": 48, "flags": 4},
         {"matrix": [3, 11], "x": 179, "y": 48, "flags": 4},
-        {"matrix": [3, 13], "x": 195, "y": 48, "flags": 4},
-        {"matrix": [3, 14], "x": 210, "y": 48, "flags": 4},
+        //NO_KEY [3,12]
+        {"matrix": [3, 12], "x": 195, "y": 48, "flags": 4},
+        {"matrix": [3, 13], "x": 210, "y": 48, "flags": 4},
 
-        {"matrix": [4, 10], "x": 137, "y": 64, "flags": 4},
-        {"matrix": [4, 11], "x": 152, "y": 64, "flags": 4},
-        {"matrix": [4, 12], "x": 166, "y": 64, "flags": 4},
-        {"matrix": [4, 13], "x": 181, "y": 64, "flags": 4},
-        {"matrix": [4, 14], "x": 195, "y": 64, "flags": 4},
+        //NO_KEY [4,7]
+        //NO_KEY [4,8]
+        //NO_KEY [4,9]
+        {"matrix": [4, 6], "x": 137, "y": 64, "flags": 4},
+        {"matrix": [4, 7], "x": 152, "y": 64, "flags": 4},
+        {"matrix": [4, 8], "x": 166, "y": 64, "flags": 4},
+        {"matrix": [4, 9], "x": 181, "y": 64, "flags": 4},
+        {"matrix": [4, 10], "x": 195, "y": 64, "flags": 4},
 
-        {"matrix": [2, 14], "x": 210, "y": 32, "flags": 4},
-        {"matrix": [2, 13], "x": 190, "y": 32, "flags": 4},
-        // {"matrix": [2, 12], "x": -1, "y": -1},
+        {"matrix": [2, 13], "x": 210, "y": 32, "flags": 4},
+        {"matrix": [2, 12], "x": 190, "y": 32, "flags": 4},
+        //NO_KEY [2,12]
         {"matrix": [2, 11], "x": 170, "y": 32, "flags": 4},
         {"matrix": [2, 10], "x": 155, "y": 32, "flags": 4},
         {"matrix": [2, 9], "x": 141, "y": 32, "flags": 4},
@@ -132,7 +201,7 @@
     ]
   },
   "layouts": {
-    "LAYOUT_65_ansi": {
+    "LAYOUT": {
       "layout": [
         { "matrix": [0, 0], "x": 0, "y": 0 },
         { "matrix": [0, 1], "x": 1, "y": 0 },

@@ -1,0 +1,9 @@
+#debug
+CONSOLE_ENABLE = yes
+KEYCODE_STRING_ENABLE = yes
+
+#rgb matrix
+WS2812_DRIVER_REQUIRED = yes
+
+#other
+UART_DRIVER_REQUIRED = yes
