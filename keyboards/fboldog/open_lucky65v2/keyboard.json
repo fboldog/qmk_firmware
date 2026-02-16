@@ -69,8 +69,8 @@
       "sat": 255,
       "speed": 75,
       "val": 200,
-      "on": true,
-      "animation": "solid_reactive_simple"
+      "on": false,
+    //   "animation": "solid_reactive_simple"
     },
     "animations": {
     //   "alphas_mods": true,
@@ -105,13 +105,13 @@
     //   "rainbow_pinwheels": true,
     //   "raindrops": true,
     //   "solid_multisplash": true,
-      "solid_reactive": true,
+    //   "solid_reactive": true,
     //   "solid_reactive_cross": true,
     //   "solid_reactive_multicross": true,
     //   "solid_reactive_multinexus": true,
     //   "solid_reactive_multiwide": true,
     //   "solid_reactive_nexus": true,
-      "solid_reactive_simple": true,
+    //   "solid_reactive_simple": true,
     //   "solid_reactive_wide": true,
     //   "solid_splash": true,
     //   "splash": true,
