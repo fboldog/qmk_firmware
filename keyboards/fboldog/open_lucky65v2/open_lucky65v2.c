@@ -4,7 +4,7 @@
 #include "timer.h"
 
 static void change_rgb_matrix_state(bool enable);
-// static void walk_red_leds(void);
+static void walk_red_leds(void);
 
 #ifndef RGB_DRIVER_ENABLE_STATE
 #    define RGB_DRIVER_ENABLE_STATE 1
@@ -15,7 +15,7 @@ static void change_rgb_matrix_state(bool enable);
 #endif
 
 #define MY_LED_COUNT 67
-#define WALK_DELAY 500
+#define WALK_DELAY 3000
 
 
 // #ifdef CONSOLE_ENABLE
@@ -82,6 +82,10 @@ void keyboard_post_init_user(void) {
 }
 
 
+    static uint8_t  current    = 0;
+    static uint16_t last_step  = 0;
+
+
 void change_rgb_matrix_state(bool enable) {
     uprintf("rgb matrix enable => %b\n", enable);
     if (enable) {
@@ -90,43 +94,44 @@ void change_rgb_matrix_state(bool enable) {
         rgb_matrix_sethsv_noeeprom(HSV_WHITE);
         // rgb_matrix_set_color(0, RGB_RED);
     } else {
+            // Turn all LEDs off
+    for (uint8_t i = 0; i < MY_LED_COUNT; i++) {
+        rgb_matrix_set_color(i, RGB_OFF);
+    }
         // writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_DISABLE_STATE);
         rgb_matrix_disable();
+    current = 0;
+    last_step = 0;
+
     }
 }
 
-// void walk_red_leds(void) {
-//     static uint8_t  current    = 0;
-//     static uint16_t last_step  = 0;
+void walk_red_leds(void) {
 
-//     // Initialize timer on first run
-//     if (last_step == 0) {
-//         last_step = timer_read();
-//     }
+    // Initialize timer on first run
+    if (last_step == 0) {
+        last_step = timer_read();
+    }
 
-//     // Wait until WALK_DELAY ms have passed
-//     if (timer_elapsed(last_step) < WALK_DELAY) {
-//         return;
-//     }
-//     last_step = timer_read();
+    // Wait until WALK_DELAY ms have passed
+    if (timer_elapsed(last_step) < WALK_DELAY) {
+        return;
+    }
+    last_step = timer_read();
 
-//     // Turn all LEDs off
-//     // for (uint8_t i = 0; i < MY_LED_COUNT; i++) {
-//     //     rgb_matrix_set_color(i, RGB_OFF);
-//     // }
+    // Turn current LED on in red
+    uprintf("switching on: %d\n", current)
+    rgb_matrix_set_color(current, RGB_BLUE);
 
-//     // Turn current LED on in red
-//     rgb_matrix_set_color(current, RGB_BLUE);
+    // Advance to next LED with wraparound
+    current++;
+    if (current >= MY_LED_COUNT) {
+        current = 0;
+    }
+}
 
-//     // Advance to next LED with wraparound
-//     current++;
-//     if (current >= MY_LED_COUNT) {
-//         current = 0;
-//     }
-// }
-
-// void matrix_scan_user(void) {
-//     if (rgb_matrix_is_enabled()) {
-//         // walk_red_leds();
-//     }
-// }
+void matrix_scan_user(void) {
+    if (rgb_matrix_is_enabled()) {
+        walk_red_leds();
+    }
+}
