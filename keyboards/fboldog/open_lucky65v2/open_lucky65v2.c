@@ -14,13 +14,13 @@ static void walk_red_leds(void);
 #    define RGB_DRIVER_DISABLE_STATE 1
 #endif
 
-#define MY_LED_COUNT 67
-#define WALK_DELAY 3000
+#define MY_LED_COUNT RGB_MATRIX_LED_COUNT
+#define WALK_DELAY 5000
 
 
 // #ifdef CONSOLE_ENABLE
 void keyboard_post_init_kb(void) {
-    // debug_enable   = true;
+    debug_enable   = true;
     // debug_matrix   = false;
     // debug_keyboard = false;
 
@@ -34,8 +34,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
 #ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-    uprintf("kc: %s\n", get_keycode_string(keycode));
+    // uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    // uprintf("kc: %s\n", get_keycode_string(keycode));
 #endif
 
     switch (keycode) {
@@ -78,7 +78,7 @@ void keyboard_pre_init_user(void) {
 void keyboard_post_init_user(void) {
     writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_ENABLE_STATE);
     // rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    // rgb_matrix_set_color(0, RGB_RED);
+    // rgb_matrix_set_color(0, RGB_OFF);
 }
 
 
@@ -91,7 +91,10 @@ void change_rgb_matrix_state(bool enable) {
     if (enable) {
         // writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_ENABLE_STATE);
         rgb_matrix_enable();
-        rgb_matrix_sethsv_noeeprom(HSV_WHITE);
+        // for (uint8_t i = 0; i < MY_LED_COUNT; i++) {
+        //     rgb_matrix_set_color(i, RGB_OFF);
+        // }
+        // rgb_matrix_sethsv_noeeprom(HSV_WHITE);
         // rgb_matrix_set_color(0, RGB_RED);
     } else {
             // Turn all LEDs off
@@ -120,7 +123,7 @@ void walk_red_leds(void) {
     last_step = timer_read();
 
     // Turn current LED on in red
-    uprintf("switching on: %d\n", current)
+    uprintf("switching on: %d\n", current);
     rgb_matrix_set_color(current, RGB_BLUE);
 
     // Advance to next LED with wraparound
