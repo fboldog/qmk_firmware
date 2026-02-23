@@ -11,7 +11,7 @@ static void change_rgb_matrix_state(bool enable);
 #endif
 
 #ifndef RGB_DRIVER_DISABLE_STATE
-#    define RGB_DRIVER_DISABLE_STATE 1
+#    define RGB_DRIVER_DISABLE_STATE 0
 #endif
 
 // #define MY_LED_COUNT RGB_MATRIX_LED_COUNT
@@ -66,19 +66,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 // pre init
 void keyboard_pre_init_user(void) {
-     eeconfig_init();
-     eeconfig_update_rgb_matrix_default();
-     rgb_matrix_enable_noeeprom();
-     rgb_matrix_config.enable = true;
+    //  eeconfig_init();
+    //  eeconfig_update_rgb_matrix_default();
+    //  rgb_matrix_enable_noeeprom();
+    //  rgb_matrix_config.enable = true;
 #ifdef RGB_DRIVER_EN_PIN
     setPinOutput(RGB_DRIVER_EN_PIN);
 #endif
 }
 
 void keyboard_post_init_user(void) {
-    writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_ENABLE_STATE);
-    // rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    // rgb_matrix_set_color(0, RGB_OFF);
 }
 
 
@@ -89,20 +86,12 @@ void keyboard_post_init_user(void) {
 void change_rgb_matrix_state(bool enable) {
     uprintf("rgb matrix enable => %b\n", enable);
     if (enable) {
-        // writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_ENABLE_STATE);
+        writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_ENABLE_STATE);
         rgb_matrix_enable();
-        // for (uint8_t i = 0; i < MY_LED_COUNT; i++) {
-        //     rgb_matrix_set_color(i, RGB_OFF);
-        // }
-        // rgb_matrix_sethsv_noeeprom(HSV_WHITE);
-        // rgb_matrix_set_color(0, RGB_RED);
     } else {
-            // Turn all LEDs off
-    // for (uint8_t i = 0; i < MY_LED_COUNT; i++) {
-    //     rgb_matrix_set_color(i, RGB_OFF);
-    // }
-        // writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_DISABLE_STATE);
+        writePin(RGB_DRIVER_EN_PIN, RGB_DRIVER_DISABLE_STATE);
         rgb_matrix_disable();
+
     // current = 0;
     // last_step = 0;
 
