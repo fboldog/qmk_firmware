@@ -6,7 +6,7 @@
   "bootloader": "wb32-dfu",
   "features": {
     "bootmagic": true,
-    "extrakey": false,
+    "extrakey": true,
     "mousekey": true,
     "nkro": true,
     "rgb_matrix": true,
