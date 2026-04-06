@@ -5,6 +5,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
+    strategy:
+      matrix:
+        keymap: [default, split]
     # End of json file list
 
     steps:
@@ -20,14 +23,14 @@ jobs:
 
       - name: Build firmware
         run: qmk compile -kb fboldog/open_lucky65v2 -km default
-        run: qmk compile -kb fboldog/open_lucky65v2 -km split
+#        run: qmk compile -kb fboldog/open_lucky65v2 -km split
 
       - name: Archive firmware
         uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
           name: fboldog_open_lucky65v2_default
-          name: fboldog_open_lucky65v2_split
+          #name: fboldog_open_lucky65v2_split
           path: |
             *.hex
             *.bin
