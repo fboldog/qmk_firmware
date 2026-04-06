@@ -20,12 +20,14 @@ jobs:
 
       - name: Build firmware
         run: qmk compile -kb fboldog/open_lucky65v2 -km default
+        run: qmk compile -kb fboldog/open_lucky65v2 -km split
 
       - name: Archive firmware
         uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
           name: fboldog_open_lucky65v2_default
+          name: fboldog_open_lucky65v2_split
           path: |
             *.hex
             *.bin
