@@ -275,7 +275,7 @@
         { "matrix": [4, 11], "x": 14.75, "y": 4 }
       ]
     },
-    "LAYOUT_split_spc": {
+    "LAYOUT_split": {
       "layout": [
         { "matrix": [0, 0], "x": 0, "y": 0 },
         { "matrix": [0, 1], "x": 1, "y": 0 },
